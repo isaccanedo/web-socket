@@ -164,3 +164,37 @@ class WebSocketClient {
 }
 ```
 
+O código JavaScript pode ser executado com o Chrome (ou qualquer outro navegador), usando suas ferramentas de desenvolvedor integradas. Abra uma nova janela no Chrome, copie o código do cliente JavaScript WebSocket acima e cole-o no console fornecido pelas ferramentas de desenvolvedor do Chrome.
+
+A classe WebSocketClient agora foi definida na página atual. No console, digite o código JavaScript abaixo para criar um novo objeto dessa classe.
+
+```
+var client = new WebSocketClient('ws','127.0.0.1',8080,'/WebSocketServer/endpoint');
+```
+
+Em seguida, chame o método de conexão para abrir uma nova conexão com o ponto de extremidade do servidor WebSocket. O navegador chamará o manipulador de eventos onopen assim que a conexão for estabelecida.
+
+```
+client.connect();
+```
+
+Neste ponto, o contêiner que está hospedando o endpoint do servidor WebSocket chamará o método onOpen da implementação do servidor. Neste exemplo, o servidor simplesmente imprime o Id da sessão, que é 0 aqui.
+
+- Veja o método onOpen da classe MyWebSocket.java da seção 1;
+- Consulte a documentação do Oracle para obter detalhes sobre javax.websocket.Session.
+
+No lado do cliente, execute o método send (String message) usando o JavaScript abaixo para enviar uma nova mensagem ao servidor.
+
+```
+client.send ('Olá servidor!');
+```
+
+O servidor retorna uma mensagem de saudação ao cliente, aqui "Hello Client 0!" Consulte a linha 34 da classe MyWebSocket.java da seção 1. Ao mesmo tempo, o contêiner que está hospedando o endpoint do servidor WebSocket chamará o método onMessage da implementação do servidor. O servidor simplesmente imprime a mensagem do cliente no console.
+
+# 6. Envio automático de notificações para clientes WebSocket
+Nesta seção, a classe MyWebSocket.java é alterada um pouco para que os clientes possam se inscrever em um serviço de notificação que enviará periodicamente a hora atual do sistema do servidor. Os clientes que desejam receber essas notificações precisam fornecer um parâmetro de string de consulta de URL, conforme mostrado abaixo:
+
+```
+ws://127.0.0.1:8080/WebSocketServer/endpoint?push=TIME
+```
+Novo código foi adicionado ao método onOpen entre as linhas 21 e 32, conforme mostrado abaixo. A classe PushTimeService mantém uma coleção de objetos de Sessão ativos e envia periodicamente o horário atual do servidor para todos os clientes que se inscreveram.
