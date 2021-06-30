@@ -250,3 +250,16 @@ public class MyWebSocket {
     }
 }
 ```
+
+No cenário a seguir, 2 clientes WebSocket foram iniciados em navegadores diferentes usando a classe WebSocketClient JavaScript da seção 3. Ambos se inscreveram para receber a hora do sistema do servidor.
+
+A classe PushTimeService envia a hora do sistema do servidor para ambos os clientes, a cada 10 segundos.
+
+Abordagens semelhantes podem ser usadas para enviar uma variedade de dados orientados a eventos do servidor para os clientes em tempo real. Uma vez que a conexão WebSocket do cliente reside na camada de interface do usuário, os WebSockets são uma boa solução (alternativa à pesquisa) para conduzir componentes de interface do usuário em tempo real, como cotações da bolsa ou notificações
+
+# 7. Monitorando o tráfego do WebSocket com as ferramentas do desenvolvedor do Chrome
+As Ferramentas para Desenvolvedores do Chrome fornecem meios para o monitoramento básico do tráfego do WebSocket. Use a guia Rede e filtre o tráfego com o botão WS para mostrar apenas WebSockets. A guia Cabeçalhos mostra a solicitação http do cliente e a resposta do servidor. Os parâmetros da string de consulta estão listados na parte inferior.
+
+Observe que o servidor responde com uma atualização de conexão no cabeçalho de resposta para atualizar a conexão http para uma conexão WebSocket persistente. Consulte o mecanismo de atualização de protocolo para obter detalhes sobre este processo. A guia Frames mostra todas as mensagens WebSocket enviadas e recebidas. Clique em um quadro para ver seu conteúdo.
+
+A guia Timig mostra há quanto tempo a conexão WebSocket está aberta. No exemplo abaixo, ele está aberto há 4,4 minutos.
