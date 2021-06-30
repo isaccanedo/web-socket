@@ -9,11 +9,22 @@ import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
 @ServerEndpoint("/endpoint")
 public class MyWebSocket {
-    
-    private static PushTimeService pst;
     @OnOpen
     public void onOpen(Session session) {
-        System.out.println("onOpen::" + session.getId());        
+        System.out.println("onOpen::" + session.getId());
+        
+        ///////////////////////////////////////////////////////////////////////////// 
+        // Access request parameters from URL query String.
+        // If a client subscribes, add Session to PushTimeService. 
+        //
+        Map<String, List<String>> params = session.getRequestParameterMap();
+        
+        if (params.get("push") != null && (params.get("push").get(0).equals("TIME"))) {
+            
+          PushTimeService.initialize();
+          PushTimeService.add(session);
+        }
+        /////////////////////////////////////////////////////////////////////////////
     }
     @OnClose
     public void onClose(Session session) {
