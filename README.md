@@ -78,3 +78,18 @@ public class MyWebSocket {
     }
 }
 ```
+
+Esta configuração permite executar o aplicativo do servidor WebSocket no Tomcat de dentro do Eclipse. A imagem acima mostra a estrutura básica do projeto dinâmico da web no Project Explorer. Observe o arquivo tomcat-websocket.jar na biblioteca de tempo de execução do servidor Apache Tomcat v9.0. Ele contém a API Java para suporte WebSocket.
+
+# 3. Executando o Servidor WebSocket no Tomcat
+Para exportar o aplicativo do servidor WebSocket para que ele possa ser implantado em um servidor Tomcat externo, consulte a postagem abaixo sobre a criação de um arquivo WAR:
+
+Eclipse Neon - Exportar Projeto Dinâmico da Web para Arquivo WAR
+Aqui, o aplicativo da web é executado de dentro do Eclipse usando a configuração de projeto da web dinâmica mencionada anteriormente. Nenhuma mudança na configuração do Tomcat é necessária para executar um ponto de extremidade do servidor WebSocket. O número da porta será o mesmo usado para conexões por meio do protocolo http, por exemplo, 8080.
+
+# 4. Executando à Aplicação
+Se não houver erros, o servidor WebSocket está funcionando e pronto para aceitar conexões de clientes. O URL do endpoint do servidor WebSocket para acessá-lo de uma máquina local seria:
+
+```
+ws://127.0.0.1:8080 WebSocketServer/endpoint
+```
